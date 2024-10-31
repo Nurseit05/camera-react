@@ -1,6 +1,8 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
+import FacingCamera from '@/assets/facingCamera.svg';
+
 import { cropImage, prepareCameraSetting } from './lib';
 import { Props } from './model';
 import s from './styles.module.scss';
@@ -14,22 +16,22 @@ const FRONT_CAMERA = 'user';
 
 const BACK_CAMERA = { exact: 'environment' };
 
-const videoConstraints = {
-  width: window.screen.width,
-  height: HEIGHT,
-  facingMode:
-    process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
-};
-
-export const ScanMedia: FC<Props> = ({ mask, onMakeShot, onError }) => {
+export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const [, setLoading] = useState<boolean>(true);
   const [url, setUrl] = useState('');
   const [cropSettings, setCropSettings] = useState<CropSettingsType | null>(
     null,
   );
-  console.log('test');
-
+  const [facingCamera, setFacingCamera] = useState(
+    process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
+  );
   const webcamRef = useRef<Webcam>(null);
+
+  const videoConstraints = {
+    width: window.screen.width,
+    height: HEIGHT,
+    facingMode: facingCamera,
+  };
 
   useEffect(() => {
     const { cropSettings } = prepareCameraSetting();
@@ -65,8 +67,6 @@ export const ScanMedia: FC<Props> = ({ mask, onMakeShot, onError }) => {
         onUserMedia={onStartLoader}
         screenshotFormat="image/jpeg"
       />
-
-      {/* Динамическое применение cropSettings к стилю blockPhoto */}
       {cropSettings && (
         <div
           className={s.blockPhoto}
@@ -77,6 +77,13 @@ export const ScanMedia: FC<Props> = ({ mask, onMakeShot, onError }) => {
         ></div>
       )}
 
+      <button
+        onClick={() => setFacingCamera(FRONT_CAMERA)}
+        className={s.btnFrontCamera}
+      >
+        <img src={FacingCamera} />
+      </button>
+
       {url && (
         <div className={s.urls}>
           <img src={url} />
@@ -84,13 +91,9 @@ export const ScanMedia: FC<Props> = ({ mask, onMakeShot, onError }) => {
       )}
 
       {
-        <>
-          {mask}
-
-          <div className={s.wrapperButton}>
-            <button className={s.button} onClick={onScreenShot} />
-          </div>
-        </>
+        <div className={s.wrapperButton}>
+          <button className={s.button} onClick={onScreenShot} />
+        </div>
       }
     </div>
   );

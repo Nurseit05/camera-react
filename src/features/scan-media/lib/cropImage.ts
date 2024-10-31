@@ -63,9 +63,6 @@ export const cropImage = (base64?: string | null): Promise<string> => {
         cropSettings.dw,
         cropSettings.dh,
       );
-
-      console.log(cropSettings);
-
       resolve(canvas.toDataURL());
     };
 
