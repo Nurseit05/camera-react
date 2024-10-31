@@ -26,11 +26,8 @@ export const prepareCameraSetting = () => {
       sy: START_CROP_Y, //начальная точка вырезки фото по оси Y
       sw: percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE), //ширина фотографии для вырезки
       sh: HEIGHT_IMAGE, //высова фотографии для вырезки
-      dx: percentToNumber(
-        window.innerWidth,
-        START_CROP_IMAGE_IN_PERCENTAGE_BY_X,
-      ), //отступ результата вырезанной фото по оси X
-      dy: START_CROP_Y, //отступ результата вырезанной фото по оси Y
+      dx: 0, //отступ результата вырезанной фото по оси X
+      dy: 0, //отступ результата вырезанной фото по оси Y
       dw: percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE), // ширина вырезанной фотографии
       dh: HEIGHT_IMAGE, // высота вырезанной фотографии
     },
