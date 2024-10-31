@@ -6,7 +6,7 @@ const START_CROP_IMAGE_IN_PERCENTAGE_BY_X = 7;
 
 const FULL_PERCENT = 100;
 
-const START_CROP_Y = 125;
+const START_CROP_Y = 75;
 
 const percentToNumber = (fullNumber: number, percent: number) => {
   return (fullNumber * percent) / FULL_PERCENT;
