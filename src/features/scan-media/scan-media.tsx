@@ -76,7 +76,11 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
       )}
 
       <button
-        onClick={() => setIsFrontCamera(FRONT_CAMERA)}
+        onClick={() =>
+          setIsFrontCamera((prev) =>
+            prev === FRONT_CAMERA ? BACK_CAMERA : FRONT_CAMERA,
+          )
+        }
         className={s.btnFrontCamera}
       >
         <img src={FacingCameraIcon} alt="Switch Camera" />
