@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
-import FacingCamera from '@/assets/facingCamera.svg';
+import FacingCameraIcon from '@/assets/facingCamera.svg';
 
 import { cropImage, prepareCameraSetting } from './lib';
 import { Props } from './model';
@@ -9,50 +9,48 @@ import s from './styles.module.scss';
 import { cropSettings as CropSettingsType } from './type';
 
 const HEIGHT = 500;
-
 const SCREEN_QUALITY = 1;
-
 const FRONT_CAMERA = 'user';
-
 const BACK_CAMERA = { exact: 'environment' };
 
 export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
-  const [, setLoading] = useState<boolean>(true);
-  const [url, setUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState<string>('');
   const [cropSettings, setCropSettings] = useState<CropSettingsType | null>(
     null,
   );
-  const [facingCamera, setFacingCamera] = useState(
+  const [isFrontCamera, setIsFrontCamera] = useState(
     process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
   );
+
   const webcamRef = useRef<Webcam>(null);
+
+  useEffect(() => {
+    const settings = prepareCameraSetting();
+    setCropSettings(settings.cropSettings);
+  }, []);
 
   const videoConstraints = {
     width: window.screen.width,
     height: HEIGHT,
-    facingMode: facingCamera,
+    facingMode: isFrontCamera,
   };
 
-  useEffect(() => {
-    const { cropSettings } = prepareCameraSetting();
-    setCropSettings(cropSettings);
-  }, []);
+  const captureScreenshot = useCallback(async () => {
+    const imageSrc = webcamRef.current?.getScreenshot();
 
-  const onScreenShot = useCallback(async () => {
-    const imageSrc = webcamRef?.current?.getScreenshot();
+    if (!imageSrc) {
+      onError();
+      return;
+    }
 
     try {
-      const result = await cropImage(imageSrc);
-      onMakeShot(result);
-      setUrl(result);
+      const croppedImage = await cropImage(imageSrc);
+      onMakeShot(croppedImage);
+      setImageUrl(croppedImage);
     } catch {
       onError();
     }
   }, [webcamRef, onMakeShot, onError]);
-
-  const onStartLoader = () => {
-    setLoading(false);
-  };
 
   return (
     <div className={s.container}>
@@ -64,7 +62,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
         width={window.screen.width}
         videoConstraints={videoConstraints}
         onUserMediaError={onError}
-        onUserMedia={onStartLoader}
+        onUserMedia={() => {}}
         screenshotFormat="image/jpeg"
       />
       {cropSettings && (
@@ -78,23 +76,21 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
       )}
 
       <button
-        onClick={() => setFacingCamera(FRONT_CAMERA)}
+        onClick={() => setIsFrontCamera(FRONT_CAMERA)}
         className={s.btnFrontCamera}
       >
-        <img src={FacingCamera} />
+        <img src={FacingCameraIcon} alt="Switch Camera" />
       </button>
 
-      {url && (
+      {imageUrl && (
         <div className={s.urls}>
-          <img src={url} />
+          <img src={imageUrl} alt="Captured" />
         </div>
       )}
 
-      {
-        <div className={s.wrapperButton}>
-          <button className={s.button} onClick={onScreenShot} />
-        </div>
-      }
+      <div className={s.wrapperButton}>
+        <button className={s.button} onClick={captureScreenshot} />
+      </div>
     </div>
   );
 };

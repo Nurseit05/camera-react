@@ -16,7 +16,6 @@ function App() {
           onMakeShot={(photo) => {
             console.log('[photo]', photo);
           }}
-          mask={<div></div>}
         />
       )}
     </>
