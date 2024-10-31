@@ -59,12 +59,11 @@
 
   .btnFrontCamera {
     position: absolute;
-    top: 10px;
     right: 10px;
     border: 0;
     padding: 0;
-    width: 42px;
-    height: 42px;
+    width: 73px;
+    height: 73px;
     border-radius: 50%;
     background-color: red;
     font-size: 16px;
@@ -85,13 +84,17 @@
     left: calc(50% - 100px);
   }
 
+  .wrapperCamera {
+    position: relative;
+    max-height: 500px;
+  }
+
   .blockPhoto {
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 125px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     border: 2px solid white;
-    box-sizing: border-box;
   }
 
   .urls {

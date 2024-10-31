@@ -54,37 +54,28 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
 
   return (
     <div className={s.container}>
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        height={HEIGHT}
-        screenshotQuality={SCREEN_QUALITY}
-        width={window.screen.width}
-        videoConstraints={videoConstraints}
-        onUserMediaError={onError}
-        onUserMedia={() => {}}
-        screenshotFormat="image/jpeg"
-      />
-      {cropSettings && (
-        <div
-          className={s.blockPhoto}
-          style={{
-            width: `${cropSettings.sw}px`,
-            height: `${cropSettings.sh}px`,
-          }}
-        ></div>
-      )}
-
-      <button
-        onClick={() =>
-          setIsFrontCamera((prev) =>
-            prev === FRONT_CAMERA ? BACK_CAMERA : FRONT_CAMERA,
-          )
-        }
-        className={s.btnFrontCamera}
-      >
-        <img src={FacingCameraIcon} alt="Switch Camera" />
-      </button>
+      <div className={s.wrapperCamera}>
+        <Webcam
+          audio={false}
+          ref={webcamRef}
+          height={HEIGHT}
+          screenshotQuality={SCREEN_QUALITY}
+          width={window.screen.width}
+          videoConstraints={videoConstraints}
+          onUserMediaError={onError}
+          onUserMedia={() => {}}
+          screenshotFormat="image/jpeg"
+        />
+        {cropSettings && (
+          <div
+            className={s.blockPhoto}
+            style={{
+              width: `${cropSettings.dw}px`,
+              height: `${cropSettings.sh}px`,
+            }}
+          ></div>
+        )}
+      </div>
 
       {imageUrl && (
         <div className={s.urls}>
@@ -94,6 +85,16 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
 
       <div className={s.wrapperButton}>
         <button className={s.button} onClick={captureScreenshot} />
+        <button
+          onClick={() =>
+            setIsFrontCamera((prev) =>
+              prev === FRONT_CAMERA ? BACK_CAMERA : FRONT_CAMERA,
+            )
+          }
+          className={s.btnFrontCamera}
+        >
+          <img src={FacingCameraIcon} alt="Switch Camera" />
+        </button>
       </div>
     </div>
   );
