@@ -1,3 +1,4 @@
+const WIDTH_IMAGE_IN_PERCENTAGE = 90;
 const HEIGHT_IMAGE = 200;
 const START_CROP_IMAGE_IN_PERCENTAGE_BY_X = 7;
 const FULL_PERCENT = 100;
@@ -8,7 +9,7 @@ const percentToNumber = (fullNumber: number, percent: number) => {
 };
 
 export const prepareCameraSetting = (isPassport: boolean) => {
-  const width = 637.8;
+  const width = percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE);
   const height = HEIGHT_IMAGE;
 
   console.log(width);
