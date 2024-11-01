@@ -84,7 +84,6 @@
     left: 10px;
     border: 0;
     padding: 0;
-    width: 637.8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -117,6 +116,8 @@
 
   .blockPhoto {
     position: absolute;
+    width: 637.8px;
+
     top: 75px;
     left: 50%;
     transform: translateX(-50%);
