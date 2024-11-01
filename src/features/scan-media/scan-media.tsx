@@ -77,6 +77,7 @@ export const ScanMedia: FC<Props> = ({
           <div
             className={s.blockPhoto}
             style={{
+              width: `${cropSettings.sw}px`,
               height: `${cropSettings.sh}px`,
             }}
           ></div>
