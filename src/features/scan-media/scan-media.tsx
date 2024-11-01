@@ -34,7 +34,7 @@ export const ScanMedia: FC<Props> = ({
   useEffect(() => {
     const settings = prepareCameraSetting(passport);
     setCropSettings(settings.cropSettings);
-  }, []);
+  }, [passport]);
 
   const videoConstraints = {
     width: window.screen.width,
@@ -77,7 +77,6 @@ export const ScanMedia: FC<Props> = ({
           <div
             className={s.blockPhoto}
             style={{
-              width: `${cropSettings.dw}px`,
               height: `${cropSettings.sh}px`,
             }}
           ></div>
