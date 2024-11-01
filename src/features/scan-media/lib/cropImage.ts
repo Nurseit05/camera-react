@@ -12,8 +12,6 @@ export const prepareCameraSetting = (isPassport: boolean) => {
   const width = percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE);
   const height = HEIGHT_IMAGE;
 
-  console.log(width);
-
   return {
     canvasSettings: {
       height,
@@ -66,6 +64,7 @@ export const cropImage = (
 
       canvas.width = canvasSettings.width;
       canvas.height = canvasSettings.height;
+      console.log(cropSettings?.sx);
 
       ctx.drawImage(
         img,
