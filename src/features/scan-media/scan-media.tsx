@@ -2,6 +2,8 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
 import FacingCameraIcon from '@/assets/facingCamera.svg';
+import ForeignPassport from '@/assets/foreignPassport.svg';
+import Passport from '@/assets/passport.svg';
 
 import { cropImage, prepareCameraSetting } from './lib';
 import { Props } from './model';
@@ -13,7 +15,12 @@ const SCREEN_QUALITY = 1;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
 
-export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
+export const ScanMedia: FC<Props> = ({
+  passport,
+  onMakeShot,
+  onError,
+  onClick,
+}) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [cropSettings, setCropSettings] = useState<CropSettingsType | null>(
     null,
@@ -25,7 +32,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const webcamRef = useRef<Webcam>(null);
 
   useEffect(() => {
-    const settings = prepareCameraSetting();
+    const settings = prepareCameraSetting(passport);
     setCropSettings(settings.cropSettings);
   }, []);
 
@@ -44,13 +51,13 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     }
 
     try {
-      const croppedImage = await cropImage(imageSrc);
+      const croppedImage = await cropImage(imageSrc, passport);
       onMakeShot(croppedImage);
       setImageUrl(croppedImage);
     } catch {
       onError();
     }
-  }, [webcamRef, onMakeShot, onError]);
+  }, [webcamRef, onMakeShot, onError, passport]);
 
   return (
     <div className={s.container}>
@@ -66,7 +73,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
           onUserMedia={() => {}}
           screenshotFormat="image/jpeg"
         />
-        {cropSettings && (
+        {cropSettings && passport && (
           <div
             className={s.blockPhoto}
             style={{
@@ -94,6 +101,9 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
           className={s.btnFrontCamera}
         >
           <img src={FacingCameraIcon} alt="Switch Camera" />
+        </button>
+        <button onClick={onClick} className={s.btnPassport}>
+          <img src={passport ? Passport : ForeignPassport} alt="Passport" />
         </button>
       </div>
     </div>
