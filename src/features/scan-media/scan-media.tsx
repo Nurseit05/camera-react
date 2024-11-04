@@ -86,10 +86,12 @@ export const ScanMedia: FC<Props> = ({
 
       {imageUrl && (
         <div className={s.urls}>
-          <img src={imageUrl} alt="Captured" />
-          <button className={s.btnImage} onClick={() => setImageUrl('')}>
-            Закрыть
-          </button>
+          <div className={s.wrapperImage}>
+            <img src={imageUrl} alt="Captured" />
+            <button className={s.btnImage} onClick={() => setImageUrl('')}>
+              Закрыть
+            </button>
+          </div>
         </div>
       )}
 

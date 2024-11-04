@@ -138,12 +138,10 @@
     }
 
     .btnImage {
-      margin: 0 16px;
       position: absolute;
       bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
+      left: 16px;
+      right: 16px;
     }
   }
 }
