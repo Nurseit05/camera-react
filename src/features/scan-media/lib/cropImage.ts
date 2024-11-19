@@ -64,7 +64,6 @@ export const cropImage = (
 
       canvas.width = canvasSettings.width;
       canvas.height = canvasSettings.height;
-      console.log(cropSettings?.sx);
 
       ctx.drawImage(
         img,
