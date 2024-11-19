@@ -13,22 +13,39 @@ function App() {
   };
 
   const fetchPhoto = async (photo: string) => {
-    const formData = new FormData();
-
-    formData.append('file', photo);
     try {
+      // Убираем префикс data:image/png;base64, если он есть
+      const trimmedBase64 = photo.replace(/^data:image\/\w+;base64,/, '');
+
+      // Преобразуем Base64 в Blob
+      const binary = atob(trimmedBase64);
+      const array = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        array[i] = binary.charCodeAt(i);
+      }
+      const blob = new Blob([array], { type: 'image/png' });
+
+      // Добавляем Blob в FormData
+      const formData = new FormData();
+      formData.append('file', blob, 'photo.png'); // Указываем имя файла
+
       const response = await fetch(
         'https://ai.mdigital.kg/api/v1/mrz_recognition/process/',
         {
           method: 'POST',
-          body: JSON.stringify(formData),
+          body: formData,
         },
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const json = await response.json();
-      alert(json);
-    } catch {
-      console.log('error');
+      alert(JSON.stringify(json));
+      console.log(json);
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 

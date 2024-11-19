@@ -53,6 +53,7 @@ export const ScanMedia: FC<Props> = ({
     try {
       const croppedImage = await cropImage(imageSrc, passport);
       onMakeShot(croppedImage);
+      console.log(croppedImage);
       setImageUrl(croppedImage);
     } catch {
       onError();
