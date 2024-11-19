@@ -12,6 +12,26 @@ function App() {
     setPassport(passport);
   };
 
+  const fetchPhoto = async (photo: string) => {
+    const formData = new FormData();
+
+    formData.append('file', photo);
+    try {
+      const response = await fetch(
+        'https://ai.mdigital.kg/api/v1/mrz_recognition/process/',
+        {
+          method: 'POST',
+          body: JSON.stringify(formData),
+        },
+      );
+
+      const json = await response.json();
+      console.log(json);
+    } catch {
+      console.log('error');
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -28,7 +48,7 @@ function App() {
           passport={passport}
           onError={() => {}}
           onMakeShot={(photo) => {
-            console.log('[photo]', photo);
+            fetchPhoto(photo);
           }}
           onClick={() => setPassport((prev) => !prev)}
         />
