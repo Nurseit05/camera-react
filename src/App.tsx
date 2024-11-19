@@ -26,7 +26,7 @@ function App() {
       );
 
       const json = await response.json();
-      console.log(json);
+      alert(json);
     } catch {
       console.log('error');
     }
