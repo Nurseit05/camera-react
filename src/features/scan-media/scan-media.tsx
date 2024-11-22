@@ -21,7 +21,6 @@ export const ScanMedia: FC<Props> = ({
   onError,
   onClick,
 }) => {
-  const [imageUrl, setImageUrl] = useState<string>('');
   const [cropSettings, setCropSettings] = useState<CropSettingsType | null>(
     null,
   );
@@ -53,7 +52,6 @@ export const ScanMedia: FC<Props> = ({
     try {
       const croppedImage = await cropImage(imageSrc, passport);
       onMakeShot(croppedImage);
-      setImageUrl(croppedImage);
     } catch {
       onError();
     }
@@ -83,16 +81,6 @@ export const ScanMedia: FC<Props> = ({
           ></div>
         )}
       </div>
-
-      {imageUrl && (
-        <div className={s.urls}>
-          <img src={imageUrl} alt="Captured" />
-          <div className={s.wrapperImage}>
-            <button onClick={() => setImageUrl('')}>Занова</button>
-            <button onClick={() => setImageUrl('')}>Закрыть</button>
-          </div>
-        </div>
-      )}
 
       <div className={s.wrapperButton}>
         <button className={s.button} onClick={captureScreenshot} />
