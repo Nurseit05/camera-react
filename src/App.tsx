@@ -14,10 +14,8 @@ function App() {
 
   const fetchPhoto = async (photo: string) => {
     try {
-      // Убираем префикс data:image/png;base64, если он есть
       const trimmedBase64 = photo.replace(/^data:image\/\w+;base64,/, '');
 
-      // Преобразуем Base64 в Blob
       const binary = atob(trimmedBase64);
       const array = new Uint8Array(binary.length);
       for (let i = 0; i < binary.length; i++) {
@@ -25,9 +23,8 @@ function App() {
       }
       const blob = new Blob([array], { type: 'image/png' });
 
-      // Добавляем Blob в FormData
       const formData = new FormData();
-      formData.append('file', blob, 'photo.png'); // Указываем имя файла
+      formData.append('file', blob, 'photo.png');
 
       const response = await fetch(
         'https://ai.mdigital.kg/api/v1/mrz_recognition/process/',
