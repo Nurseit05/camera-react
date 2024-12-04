@@ -27,10 +27,11 @@ export const ScanMedia: FC<Props> = ({
   );
 
   const webcamRef = useRef<Webcam>(null);
+  console.log(window.screen.width);
 
   const videoConstraints = {
     width: {
-      min: window.screen.width,
+      min: 1440,
       max: 2560,
       ideal: 2560,
     },
