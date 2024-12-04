@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { clsx } from 'clsx';
-
 import ModalUploading from '@/features/modalUploading';
 import { ScanMedia } from '@/features/scan-media';
 
@@ -20,7 +18,6 @@ export function App() {
   const [notification, setNotification] = useState<NotificationType | null>(
     null,
   );
-  const [imageUrl, setImageUrl] = useState('');
   const [uploading, setUploading] = useState(false);
 
   const handlePassportScan = (passport: boolean) => {
@@ -28,14 +25,8 @@ export function App() {
     setPassport(passport);
   };
 
-  const handleResetImage = () => {
-    setScan(true);
-    setImageUrl('');
-    setNotification(null);
-  };
-
   return (
-    <section className={clsx(styles.container, imageUrl && styles.image)}>
+    <section className={styles.container}>
       <Header />
       {uploading ? (
         <ModalUploading
@@ -53,30 +44,8 @@ export function App() {
           setScan={setScan}
           onClick={() => setPassport((prev) => !prev)}
           onError={() => {}}
-          onMakeShot={(photo) =>
-            fetchPhoto(photo, setImageUrl, setNotification)
-          }
+          onMakeShot={(photo) => fetchPhoto(photo, setNotification)}
         />
-      )}
-
-      {imageUrl && (
-        <div
-          className={clsx(
-            styles.urls,
-            !passport && styles.foreignPassport,
-            notification?.status === 200 && styles.image,
-          )}
-        >
-          <img src={imageUrl} alt="Captured" />
-          <div className={styles.wrapperImage}>
-            <button className={styles.again} onClick={handleResetImage}>
-              Заново
-            </button>
-            <button className={styles.close} onClick={handleResetImage}>
-              Закрыть
-            </button>
-          </div>
-        </div>
       )}
 
       {notification && (

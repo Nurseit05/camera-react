@@ -4,11 +4,8 @@ import { API_BASE_URL } from './api';
 
 export const fetchPhoto = async (
   photo: string,
-  setImageUrl: (url: string) => void,
   setNotification: (notification: NotificationType) => void,
 ) => {
-  setImageUrl(photo);
-
   const trimmedBase64 = photo.replace(/^data:image\/\w+;base64,/, '');
   const binary = atob(trimmedBase64);
   const array = new Uint8Array(binary.length);
