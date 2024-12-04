@@ -30,12 +30,48 @@
     width: 100%;
   }
 
+  .wrapperTitle {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .title {
+    color: #f4f6f7;
+    text-align: center;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  .arrowRightBtn {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 4px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .button {
     border: none;
     border-radius: 50%;
 
-    height: 50px;
-    width: 50px;
+    width: 62px;
+    height: 62px;
 
     background-color: white;
     font-size: 16px !important;
@@ -43,17 +79,12 @@
     &:after {
       content: '';
       display: block;
-
-      height: 63px;
-      width: 63px;
-
+      height: 66px;
+      width: 66px;
       position: absolute;
-
-      top: -4px;
-      left: calc(50% - 36.5px);
-
+      top: -5px;
+      left: calc(50% - 38px);
       border-radius: 50%;
-
       border: solid white 5px;
     }
   }
@@ -63,20 +94,18 @@
     right: 10px;
     border: 0;
     padding: 0;
-    width: 73px;
-    height: 73px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: red;
+    background-color: white;
     font-size: 16px;
     font-weight: 700;
     color: #fff;
     cursor: pointer;
     box-shadow: 0 0 4px #000;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btnPassport {
@@ -90,14 +119,16 @@
     width: 73px;
     height: 73px;
     border-radius: 50%;
-    background-color: red;
+    background-color: white;
     font-size: 16px;
     font-weight: 700;
     color: #fff;
     cursor: pointer;
     box-shadow: 0 0 4px #000;
 
-    img {
+    svg {
+      fill: #000;
+      stroke: #000;
       width: 50px;
       height: 50px;
     }
@@ -117,6 +148,7 @@
 
   .blockPhoto {
     position: absolute;
+    border-radius: 20px;
 
     top: 75px;
     left: 50%;

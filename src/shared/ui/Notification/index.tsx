@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import clsx from 'clsx';
 
 import CarefullyRound from '@/shared/ui/icons/CarefullyRound';
@@ -21,16 +19,6 @@ const Notification = ({
       : status && status >= 400
         ? styles.bgOrange
         : '';
-
-  useEffect(() => {
-    if (visible) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [visible, onClose]);
 
   if (!visible) {
     return null;

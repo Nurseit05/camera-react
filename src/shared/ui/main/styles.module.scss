@@ -1,0 +1,28 @@
+.main {
+  background-color: #f4f6f7;
+  display: flex;
+  align-items: flex-end;
+  padding: 60px 16px 80px 16px !important;
+  height: 100%;
+
+  .wrapperBtn {
+    display: flex;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    height: 56px;
+    background-color: #fddb2b;
+    border-radius: 16px;
+  }
+
+  .text {
+    color: #0e0f11;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+  }
+}

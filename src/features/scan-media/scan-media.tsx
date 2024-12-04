@@ -1,9 +1,10 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
+import ArrowRight from '@/assets/arrowRight.svg';
 import FacingCameraIcon from '@/assets/facingCamera.svg';
-import ForeignPassport from '@/assets/foreignPassport.svg';
-import Passport from '@/assets/passport.svg';
+
+import { clsx } from 'clsx';
 
 import { cropImage, prepareCameraSetting } from './lib';
 import { Props } from './model';
@@ -19,7 +20,8 @@ export const ScanMedia: FC<Props> = ({
   passport,
   onMakeShot,
   onError,
-  onClick,
+  setUploading,
+  setScan,
 }) => {
   const [cropSettings, setCropSettings] = useState<CropSettingsType | null>(
     null,
@@ -36,8 +38,16 @@ export const ScanMedia: FC<Props> = ({
   }, [passport]);
 
   const videoConstraints = {
-    width: window.screen.width,
-    height: HEIGHT,
+    width: {
+      min: 640,
+      max: 2560,
+      ideal: 2560,
+    },
+    height: {
+      min: 480,
+      max: 1440,
+      ideal: 1440,
+    },
     facingMode: isFrontCamera,
   };
 
@@ -57,13 +67,28 @@ export const ScanMedia: FC<Props> = ({
     }
   }, [webcamRef, onMakeShot, onError, passport]);
 
+  const handleBack = () => {
+    setUploading(true);
+    setScan(false);
+  };
+
   return (
     <div className={s.container}>
+      <div className={clsx(s.wrapperTitle, 'container')}>
+        <button onClick={handleBack} className={s.arrowRightBtn}>
+          <img src={ArrowRight} alt="ArrowRight" />
+        </button>
+        <h1 className={s.title}>
+          {passport ? 'Загрузка ID-паспорта' : 'Загрузка загранпаспорта'}
+        </h1>
+      </div>
+
       <div className={s.wrapperCamera}>
         <Webcam
           audio={false}
           ref={webcamRef}
           height={HEIGHT}
+          forceScreenshotSourceSize={true}
           screenshotQuality={SCREEN_QUALITY}
           width={window.screen.width}
           videoConstraints={videoConstraints}
@@ -93,9 +118,6 @@ export const ScanMedia: FC<Props> = ({
           className={s.btnFrontCamera}
         >
           <img src={FacingCameraIcon} alt="Switch Camera" />
-        </button>
-        <button onClick={onClick} className={s.btnPassport}>
-          <img src={passport ? Passport : ForeignPassport} alt="Passport" />
         </button>
       </div>
     </div>

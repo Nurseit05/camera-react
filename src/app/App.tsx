@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
+import ModalUploading from '@/features/modalUploading';
 import { ScanMedia } from '@/features/scan-media';
 
-import PassportButtons from '@/entities/passport/';
 import { fetchPhoto } from '@/entities/passport/model/fetchPhoto';
 
 import Notification from '@/shared/ui/Notification';
 import { NotificationType } from '@/shared/ui/Notification/type';
+import Header from '@/shared/ui/header';
+import Main from '@/shared/ui/main';
 
 import styles from './App.module.scss';
 
@@ -19,6 +21,7 @@ export function App() {
     null,
   );
   const [imageUrl, setImageUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
 
   const handlePassportScan = (passport: boolean) => {
     setScan(true);
@@ -28,19 +31,30 @@ export function App() {
   const handleResetImage = () => {
     setScan(true);
     setImageUrl('');
+    setNotification(null);
   };
 
   return (
     <section className={clsx(styles.container, imageUrl && styles.image)}>
-      {!imageUrl && <PassportButtons onScan={handlePassportScan} />}
+      <Header />
+      {uploading ? (
+        <ModalUploading
+          passwordScan={handlePassportScan}
+          closeModal={setUploading}
+        />
+      ) : (
+        <Main setUploading={setUploading} />
+      )}
 
       {scan && (
         <ScanMedia
           passport={passport}
+          setUploading={setUploading}
+          setScan={setScan}
           onClick={() => setPassport((prev) => !prev)}
           onError={() => {}}
           onMakeShot={(photo) =>
-            fetchPhoto(photo, setImageUrl, setNotification, setScan)
+            fetchPhoto(photo, setImageUrl, setNotification)
           }
         />
       )}
@@ -55,8 +69,12 @@ export function App() {
         >
           <img src={imageUrl} alt="Captured" />
           <div className={styles.wrapperImage}>
-            <button onClick={handleResetImage}>Занова</button>
-            <button onClick={handleResetImage}>Закрыть</button>
+            <button className={styles.again} onClick={handleResetImage}>
+              Заново
+            </button>
+            <button className={styles.close} onClick={handleResetImage}>
+              Закрыть
+            </button>
           </div>
         </div>
       )}

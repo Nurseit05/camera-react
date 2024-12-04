@@ -6,7 +6,6 @@ export const fetchPhoto = async (
   photo: string,
   setImageUrl: (url: string) => void,
   setNotification: (notification: NotificationType) => void,
-  setScan: (scan: boolean) => void,
 ) => {
   setImageUrl(photo);
 
@@ -41,5 +40,4 @@ export const fetchPhoto = async (
       visible: true,
     });
   }
-  setScan(false);
 };
