@@ -30,12 +30,12 @@ export const ScanMedia: FC<Props> = ({
 
   const videoConstraints = {
     width: {
-      min: 640,
+      min: window.screen.width,
       max: 2560,
       ideal: 2560,
     },
     height: {
-      min: 480,
+      min: 400,
       max: 1440,
       ideal: 1440,
     },
