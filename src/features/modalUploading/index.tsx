@@ -14,7 +14,7 @@ const ModalUploading = ({
   passwordScan,
 }: {
   closeModal: Dispatch<SetStateAction<boolean>>;
-  passwordScan: (passport: boolean) => void;
+  passwordScan: () => void;
 }) => {
   return (
     <div className={styles.container}>
@@ -29,17 +29,11 @@ const ModalUploading = ({
           </div>
         </div>
         <div className={styles.btn}>
-          <button
-            onClick={() => passwordScan(true)}
-            className={styles.wrapperBtn}
-          >
+          <button onClick={passwordScan} className={styles.wrapperBtn}>
             <img src={IdPassword} />
             <p className={styles.text}>Загрузка ID-паспорта</p>
           </button>
-          <button
-            onClick={() => passwordScan(false)}
-            className={styles.wrapperBtn}
-          >
+          <button onClick={passwordScan} className={styles.wrapperBtn}>
             <img src={Password} />
             <p className={styles.text}>Загрузка загранпаспорта</p>
           </button>

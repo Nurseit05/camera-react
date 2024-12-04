@@ -14,15 +14,13 @@ import styles from './App.module.scss';
 
 export function App() {
   const [scan, setScan] = useState(false);
-  const [passport, setPassport] = useState(true);
   const [notification, setNotification] = useState<NotificationType | null>(
     null,
   );
   const [uploading, setUploading] = useState(false);
 
-  const handlePassportScan = (passport: boolean) => {
+  const handleScanPassword = () => {
     setScan(true);
-    setPassport(passport);
   };
 
   return (
@@ -30,7 +28,7 @@ export function App() {
       <Header />
       {uploading ? (
         <ModalUploading
-          passwordScan={handlePassportScan}
+          passwordScan={handleScanPassword}
           closeModal={setUploading}
         />
       ) : (
@@ -39,10 +37,6 @@ export function App() {
 
       {scan && (
         <ScanMedia
-          passport={passport}
-          setUploading={setUploading}
-          setScan={setScan}
-          onClick={() => setPassport((prev) => !prev)}
           onError={() => {}}
           onMakeShot={(photo) => fetchPhoto(photo, setNotification)}
         />

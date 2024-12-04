@@ -1,10 +1,7 @@
 import { FC, useCallback, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
-import ArrowRight from '@/assets/arrowRight.svg';
 import FacingCameraIcon from '@/assets/facingCamera.svg';
-
-import { clsx } from 'clsx';
 
 import { cropImage } from './lib';
 import { Props } from './model';
@@ -15,19 +12,12 @@ const SCREEN_QUALITY = 1;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
 
-export const ScanMedia: FC<Props> = ({
-  passport,
-  onMakeShot,
-  onError,
-  setUploading,
-  setScan,
-}) => {
+export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const [isFrontCamera, setIsFrontCamera] = useState(
     process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
   );
 
   const webcamRef = useRef<Webcam>(null);
-  console.log(window.screen.width);
 
   const videoConstraints = {
     width: {
@@ -59,22 +49,8 @@ export const ScanMedia: FC<Props> = ({
     }
   }, [webcamRef, onMakeShot, onError]);
 
-  const handleBack = () => {
-    setUploading(true);
-    setScan(false);
-  };
-
   return (
     <div className={s.container}>
-      <div className={clsx(s.wrapperTitle, 'container')}>
-        <button onClick={handleBack} className={s.arrowRightBtn}>
-          <img src={ArrowRight} alt="ArrowRight" />
-        </button>
-        <h1 className={s.title}>
-          {passport ? 'Загрузка ID-паспорта' : 'Загрузка загранпаспорта'}
-        </h1>
-      </div>
-
       <div className={s.wrapperCamera}>
         <Webcam
           style={{
