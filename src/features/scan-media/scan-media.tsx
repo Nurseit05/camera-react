@@ -31,9 +31,9 @@ export const ScanMedia: FC<Props> = ({
 
   const videoConstraints = {
     width: {
-      min: 1440,
+      min: 640,
       max: 2560,
-      ideal: 2560,
+      ideal: 1920,
     },
     height: {
       min: 400,
@@ -77,12 +77,15 @@ export const ScanMedia: FC<Props> = ({
 
       <div className={s.wrapperCamera}>
         <Webcam
+          style={{
+            width: '100%',
+            height: 'auto',
+          }}
           audio={false}
           ref={webcamRef}
           height={HEIGHT}
           forceScreenshotSourceSize={true}
           screenshotQuality={SCREEN_QUALITY}
-          width={window.screen.width}
           videoConstraints={videoConstraints}
           onUserMediaError={onError}
           onUserMedia={() => {}}
