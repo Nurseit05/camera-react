@@ -55,7 +55,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
         <Webcam
           style={{
             width: '100%',
-            height: '400px',
+            height: '720px',
           }}
           audio={false}
           ref={webcamRef}
