@@ -27,7 +27,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     },
     height: {
       min: 400,
-      max: 1440,
+      max: 1000,
       ideal: 1440,
     },
     facingMode: isFrontCamera,
@@ -55,7 +55,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
         <Webcam
           style={{
             width: '100%',
-            height: 'auto',
+            height: '400px',
           }}
           audio={false}
           ref={webcamRef}
