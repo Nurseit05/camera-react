@@ -7,6 +7,7 @@ import { cropImage } from './lib';
 import { Props } from './model';
 import s from './styles.module.scss';
 
+const HEIGHT_IMAGE = 400;
 const SCREEN_QUALITY = 1;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
@@ -54,10 +55,10 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
         <Webcam
           style={{
             width: '100%',
-            height: '30%',
           }}
           audio={false}
           ref={webcamRef}
+          height={HEIGHT_IMAGE}
           forceScreenshotSourceSize={true}
           screenshotQuality={SCREEN_QUALITY}
           videoConstraints={videoConstraints}
