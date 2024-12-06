@@ -53,11 +53,9 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     <div className={s.container}>
       <div className={s.wrapperCamera}>
         <Webcam
-          style={{
-            width: '100%',
-          }}
           audio={false}
           ref={webcamRef}
+          width={window.innerWidth}
           height={HEIGHT_IMAGE}
           forceScreenshotSourceSize={true}
           screenshotQuality={SCREEN_QUALITY}
