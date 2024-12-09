@@ -63,10 +63,11 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
           width: imgRef.current!.naturalWidth,
           height: imgRef.current!.naturalHeight,
         });
+        alert(imageDimensions.height);
+        alert(imgRef.current!.naturalHeight);
       };
 
       imgRef.current.addEventListener('load', handleLoad);
-      alert(imageDimensions.height);
       return () => {
         imgRef.current?.removeEventListener('load', handleLoad);
       };
@@ -78,7 +79,12 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
       <div className={s.wrapperCamera}>
         {images ? (
           <>
-            <img ref={imgRef} src={images} alt="Captured" />
+            <img
+              ref={imgRef}
+              width={window.innerWidth}
+              src={images}
+              alt="Captured"
+            />
             <p>
               Image dimensions: {imageDimensions.width}px ×{' '}
               {imageDimensions.height}px
