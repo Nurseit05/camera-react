@@ -31,13 +31,38 @@
   }
 
   .again {
+    display: flex;
     padding: 16px 20px;
-    height: 56px;
+    height: 55px;
     border-radius: 16px;
-    margin: 0 20px;
+    margin: 0 16px;
     width: 100%;
     background-color: var(--primary);
     color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  .torch {
+    position: absolute;
+    right: 10px;
+    border: 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 4px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .wrapperTitle {

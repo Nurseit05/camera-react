@@ -16,6 +16,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
   );
   const [images, setImages] = useState('');
+  const [isTorchOn, setIsTorchOn] = useState<boolean>(false);
 
   const webcamRef = useRef<Webcam>(null);
 
@@ -45,28 +46,46 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     }
   }, [webcamRef, onMakeShot, onError]);
 
+  const handleUserMedia = (stream: MediaStream) => {
+    const videoTrack = stream.getVideoTracks()[0];
+
+    if ('applyConstraints' in videoTrack) {
+      try {
+        videoTrack.applyConstraints({
+          advanced: [{ torch: isTorchOn }] as any,
+        });
+      } catch (error) {
+        console.error('Ошибка при попытке включить фонарик:', error);
+      }
+    }
+  };
+
+  const toggleTorch = () => {
+    setIsTorchOn((prev) => !prev);
+  };
+
   return (
     <div className={s.container}>
       <div className={s.wrapperCamera}>
-        {images ? (
+        {images && (
           <img width={window.innerWidth} src={images} alt="Captured" />
-        ) : (
-          <Webcam
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
-            audio={false}
-            ref={webcamRef}
-            height={HEIGHT}
-            forceScreenshotSourceSize={true}
-            screenshotQuality={SCREEN_QUALITY}
-            videoConstraints={videoConstraints}
-            onUserMediaError={onError}
-            onUserMedia={() => {}}
-            screenshotFormat="image/jpeg"
-          />
         )}
+        <Webcam
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: images ? 'none' : 'inline',
+          }}
+          audio={false}
+          ref={webcamRef}
+          height={HEIGHT}
+          forceScreenshotSourceSize={true}
+          screenshotQuality={SCREEN_QUALITY}
+          videoConstraints={videoConstraints}
+          onUserMedia={handleUserMedia}
+          onUserMediaError={onError}
+          screenshotFormat="image/jpeg"
+        />
       </div>
 
       {images ? (
@@ -87,6 +106,9 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
             className={s.btnFrontCamera}
           >
             <img src={FacingCameraIcon} alt="Switch Camera" />
+          </button>
+          <button className={s.torch} onClick={toggleTorch}>
+            {isTorchOn ? 'Выключить фонарик' : 'Включить фонарик'}
           </button>
         </div>
       )}
