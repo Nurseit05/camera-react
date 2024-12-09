@@ -25,8 +25,8 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const imgRef = useRef<HTMLImageElement>(null);
 
   const videoConstraints = {
-    width: { min: 320, ideal: 640, max: 1280 },
-    height: { min: 240, ideal: 480, max: 720 },
+    width: { min: 640, ideal: 1280, max: 1920 },
+    height: { min: 480, ideal: 720, max: 1080 },
     facingMode: isFrontCamera,
   };
 
