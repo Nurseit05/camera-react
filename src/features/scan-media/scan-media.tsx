@@ -66,12 +66,11 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
       };
 
       imgRef.current.addEventListener('load', handleLoad);
+      alert(imageDimensions.height);
       return () => {
         imgRef.current?.removeEventListener('load', handleLoad);
       };
     }
-
-    alert(imageDimensions);
   }, [images, imageDimensions]);
 
   return (
