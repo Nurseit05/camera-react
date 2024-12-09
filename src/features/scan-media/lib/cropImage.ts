@@ -1,5 +1,5 @@
 const WIDTH_IMAGE_IN_PERCENTAGE = 90;
-const HEIGHT_IMAGE = 640;
+const HEIGHT_IMAGE = 230;
 const FULL_PERCENT = 100;
 
 const percentToNumber = (fullNumber: number, percent: number) => {
