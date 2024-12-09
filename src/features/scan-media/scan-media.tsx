@@ -6,7 +6,7 @@ import FacingCameraIcon from '@/assets/facingCamera.svg';
 import { Props } from './model';
 import s from './styles.module.scss';
 
-const HEIGHT = 480;
+const HEIGHT = 400;
 const SCREEN_QUALITY = 0.8;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
@@ -25,8 +25,8 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const imgRef = useRef<HTMLImageElement>(null);
 
   const videoConstraints = {
-    width: { min: 640, ideal: 1280, max: 1920 },
-    height: { min: 480, ideal: 720, max: 1080 },
+    width: { min: 640, max: 1920, ideal: 1280 },
+    height: { min: 480, max: 1080, ideal: 720 },
     facingMode: isFrontCamera,
   };
 
