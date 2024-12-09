@@ -1,13 +1,7 @@
-const WIDTH_IMAGE_IN_PERCENTAGE = 90;
 const HEIGHT_IMAGE = 640;
-const FULL_PERCENT = 100;
-
-const percentToNumber = (fullNumber: number, percent: number) => {
-  return (fullNumber * percent) / FULL_PERCENT;
-};
 
 export const prepareCameraSetting = () => {
-  const width = percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE);
+  const width = window.innerWidth;
   const height = HEIGHT_IMAGE;
 
   return {
@@ -57,6 +51,8 @@ export const cropImage = (base64?: string | null): Promise<string> => {
         cropSettings.dw,
         cropSettings.dh,
       );
+      alert(img.width);
+      alert(img.height);
 
       resolve(canvas.toDataURL());
     };

@@ -63,8 +63,6 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
           width: imgRef.current!.naturalWidth,
           height: imgRef.current!.naturalHeight,
         });
-        alert(imageDimensions.height);
-        alert(imgRef.current!.naturalHeight);
       };
 
       imgRef.current.addEventListener('load', handleLoad);
