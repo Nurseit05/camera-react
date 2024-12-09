@@ -7,7 +7,7 @@ import { Props } from './model';
 import s from './styles.module.scss';
 
 const HEIGHT = 400;
-const SCREEN_QUALITY = 0.8;
+const SCREEN_QUALITY = 0.5;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
 
