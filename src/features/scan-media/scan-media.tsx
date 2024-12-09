@@ -27,8 +27,8 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const videoConstraints = {
     width: {
       min: 640,
-      max: 2560,
-      ideal: 1920,
+      max: 1440,
+      ideal: 1440,
     },
     height: {
       min: 480,
