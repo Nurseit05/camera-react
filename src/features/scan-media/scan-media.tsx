@@ -46,24 +46,32 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     }
   }, [webcamRef, onMakeShot, onError]);
 
-  const handleUserMedia = (stream: MediaStream) => {
-    const videoTrack = stream.getVideoTracks()[0];
+  const toggleTorch = () => {
+    setIsTorchOn((prev) => !prev);
 
-    if ('applyConstraints' in videoTrack) {
-      try {
-        videoTrack.applyConstraints({
+    const videoTrack = (
+      webcamRef.current?.video?.srcObject as MediaStream
+    )?.getVideoTracks?.()[0];
+
+    if (videoTrack && 'applyConstraints' in videoTrack) {
+      if (videoTrack.getCapabilities) {
+        const capabilities = videoTrack.getCapabilities() as any;
+        if (!capabilities.torch) {
+          console.warn('Фонарик не поддерживается на этом устройстве');
+          return;
+        }
+      }
+
+      videoTrack
+        .applyConstraints({
           advanced: [
             { torch: isTorchOn },
           ] as unknown as MediaTrackConstraintSet[],
+        })
+        .catch((error) => {
+          console.error('Ошибка при переключении фонарика:', error);
         });
-      } catch (error) {
-        console.error('Ошибка при попытке включить фонарик:', error);
-      }
     }
-  };
-
-  const toggleTorch = () => {
-    setIsTorchOn((prev) => !prev);
   };
 
   return (
@@ -84,7 +92,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
           forceScreenshotSourceSize={true}
           screenshotQuality={SCREEN_QUALITY}
           videoConstraints={videoConstraints}
-          onUserMedia={handleUserMedia}
+          onUserMedia={() => {}}
           onUserMediaError={onError}
           screenshotFormat="image/jpeg"
         />
