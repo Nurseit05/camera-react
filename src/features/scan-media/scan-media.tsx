@@ -43,6 +43,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     console.log(imageSrc);
 
     if (!imageSrc) {
+      alert('Не удалось скриншотить');
       onError();
       return;
     }
@@ -51,6 +52,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
       setImages(imageSrc);
       onMakeShot(imageSrc);
     } catch {
+      alert('Не удалось скриншотить');
       onError();
     }
   }, [webcamRef, onMakeShot, onError]);
