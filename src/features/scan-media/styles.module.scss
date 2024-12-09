@@ -46,25 +46,6 @@
     line-height: 24px;
   }
 
-  .torch {
-    position: absolute;
-    left: 10px;
-    border: 0;
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: white;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 0 4px #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .wrapperTitle {
     position: absolute;
     top: 20px;
@@ -127,6 +108,25 @@
   .btnFrontCamera {
     position: absolute;
     right: 10px;
+    border: 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 4px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .torch {
+    position: absolute;
+    left: 10px;
     border: 0;
     padding: 0;
     width: 40px;

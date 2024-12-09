@@ -1,6 +1,7 @@
 import { FC, useCallback, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 
+import TorchIcon from '@/assets/Torch.svg';
 import FacingCameraIcon from '@/assets/facingCamera.svg';
 
 import { Props } from './model';
@@ -92,8 +93,8 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
           forceScreenshotSourceSize={true}
           screenshotQuality={SCREEN_QUALITY}
           videoConstraints={videoConstraints}
-          onUserMedia={() => {}}
           onUserMediaError={onError}
+          onUserMedia={() => {}}
           screenshotFormat="image/jpeg"
         />
       </div>
@@ -118,7 +119,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
             <img src={FacingCameraIcon} alt="Switch Camera" />
           </button>
           <button className={s.torch} onClick={toggleTorch}>
-            {isTorchOn ? 'Выключить фонарик' : 'Включить фонарик'}
+            <img src={TorchIcon} alt="torch" />
           </button>
         </div>
       )}
