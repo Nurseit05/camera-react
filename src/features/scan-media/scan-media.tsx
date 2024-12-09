@@ -52,7 +52,9 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     if ('applyConstraints' in videoTrack) {
       try {
         videoTrack.applyConstraints({
-          advanced: [{ torch: isTorchOn }] as any,
+          advanced: [
+            { torch: isTorchOn },
+          ] as unknown as MediaTrackConstraintSet[],
         });
       } catch (error) {
         console.error('Ошибка при попытке включить фонарик:', error);
