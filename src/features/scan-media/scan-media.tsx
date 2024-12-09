@@ -41,6 +41,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
 
   const captureScreenshot = useCallback(async () => {
     const imageSrc = webcamRef.current?.getScreenshot();
+    console.log(imageSrc);
 
     if (!imageSrc) {
       onError();
