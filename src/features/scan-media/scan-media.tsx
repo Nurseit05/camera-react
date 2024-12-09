@@ -7,7 +7,7 @@ import { Props } from './model';
 import s from './styles.module.scss';
 
 const HEIGHT = 480;
-const SCREEN_QUALITY = 1;
+const SCREEN_QUALITY = 0.5;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
 
@@ -25,34 +25,32 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
   const imgRef = useRef<HTMLImageElement>(null);
 
   const videoConstraints = {
-    width: {
-      min: 640,
-      max: 2560,
-      ideal: 1920,
-    },
-    height: {
-      min: 480,
-      max: 1440,
-      ideal: 1440,
-    },
+    width: { min: 320, ideal: 640, max: 1280 },
+    height: { min: 240, ideal: 480, max: 720 },
     facingMode: isFrontCamera,
+  };
+
+  const getImageSizeInMB = (base64: string): number => {
+    const stringLength = base64.length - 'data:image/jpeg;base64,'.length;
+    const sizeInBytes = 4 * Math.ceil(stringLength / 3) * 0.5624896334383812;
+    return sizeInBytes / (1024 * 1024);
   };
 
   const captureScreenshot = useCallback(async () => {
     const imageSrc = webcamRef.current?.getScreenshot();
-    console.log(imageSrc);
 
     if (!imageSrc) {
-      alert('Не удалось скриншотить');
       onError();
       return;
     }
+
+    const imageSizeMB = getImageSizeInMB(imageSrc);
+    alert(`Размер изображения: ${imageSizeMB.toFixed(2)} MB`);
 
     try {
       setImages(imageSrc);
       onMakeShot(imageSrc);
     } catch {
-      alert('Не удалось скриншотить');
       onError();
     }
   }, [webcamRef, onMakeShot, onError]);
