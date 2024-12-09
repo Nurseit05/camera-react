@@ -1,5 +1,5 @@
 const WIDTH_IMAGE_IN_PERCENTAGE = 90;
-const HEIGHT_IMAGE = 400;
+const HEIGHT_IMAGE = 480;
 const FULL_PERCENT = 100;
 
 const percentToNumber = (fullNumber: number, percent: number) => {
@@ -50,13 +50,14 @@ export const cropImage = (base64?: string | null): Promise<string> => {
         img,
         cropSettings.sx,
         cropSettings.sy,
-        img.width, // Используем полную ширину изображения, если passport == false
-        img.height, // Используем полную высоту изображения, если passport == false
+        canvasSettings.width, // Используем полную ширину изображения, если passport == false
+        canvasSettings.height, // Используем полную высоту изображения, если passport == false
         cropSettings.dx,
         cropSettings.dy,
         cropSettings.dw,
         cropSettings.dh,
       );
+      alert(img.height);
 
       resolve(canvas.toDataURL());
     };

@@ -7,7 +7,7 @@ import { cropImage } from './lib';
 import { Props } from './model';
 import s from './styles.module.scss';
 
-const HEIGHT = 400;
+const HEIGHT = 480;
 const SCREEN_QUALITY = 1;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
