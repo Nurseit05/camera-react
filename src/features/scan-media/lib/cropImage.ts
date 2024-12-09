@@ -50,8 +50,8 @@ export const cropImage = (base64?: string | null): Promise<string> => {
         img,
         cropSettings.sx,
         cropSettings.sy,
-        canvasSettings.width, // Используем полную ширину изображения, если passport == false
-        canvasSettings.height, // Используем полную высоту изображения, если passport == false
+        img.width, // Используем полную ширину изображения, если passport == false
+        img.height, // Используем полную высоту изображения, если passport == false
         cropSettings.dx,
         cropSettings.dy,
         cropSettings.dw,

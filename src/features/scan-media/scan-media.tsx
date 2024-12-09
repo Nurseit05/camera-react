@@ -3,7 +3,6 @@ import Webcam from 'react-webcam';
 
 import FacingCameraIcon from '@/assets/facingCamera.svg';
 
-import { cropImage } from './lib';
 import { Props } from './model';
 import s from './styles.module.scss';
 
@@ -49,9 +48,8 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     }
 
     try {
-      const croppedImage = await cropImage(imageSrc);
-      setImages(croppedImage);
-      onMakeShot(croppedImage);
+      setImages(imageSrc);
+      onMakeShot(imageSrc);
     } catch {
       onError();
     }
