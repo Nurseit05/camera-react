@@ -14,11 +14,6 @@ export default defineConfig({
     },
   },
 
-  server: {
-    host: true, // или используйте '0.0.0.0'
-    port: 3000, // можете указать нужный порт
-  },
-
   build: {
     rollupOptions: {
       output: {

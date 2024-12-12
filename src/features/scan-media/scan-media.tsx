@@ -4,6 +4,7 @@ import Webcam from 'react-webcam';
 import TorchIcon from '@/assets/Torch.svg';
 import FacingCameraIcon from '@/assets/facingCamera.svg';
 
+import { cropImage } from './lib';
 import { Props } from './model';
 import s from './styles.module.scss';
 
@@ -40,12 +41,13 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     }
 
     try {
-      setImages(imageSrc);
-      onMakeShot(imageSrc);
+      const compressedFile = await cropImage(imageSrc);
+      setImages(compressedFile);
+      // onMakeShot(compressedFile);
     } catch {
       onError();
     }
-  }, [webcamRef, onMakeShot, onError]);
+  }, [webcamRef, onError]);
 
   const toggleTorch = () => {
     setIsTorchOn((prev) => !prev);
