@@ -13,6 +13,7 @@ export interface PasswordInfo {
   document_number: string;
   nationality: string;
   birth_date: string;
+  issue_date: string;
   sex: string;
   expiry_date: string;
   inn: string;

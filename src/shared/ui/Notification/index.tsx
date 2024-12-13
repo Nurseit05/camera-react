@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 
 import CarefullyRound from '@/shared/ui/icons/CarefullyRound';
 import Cross from '@/shared/ui/icons/Cross';
@@ -41,6 +41,7 @@ const Notification = ({
           <p>Фамилия: {passport?.last_name}</p>
           <p>Номер документа: {passport?.document_number}</p>
           <p>Гражданство: {passport?.nationality}</p>
+          <p>Дата выдачи: {passport?.issue_date}</p>
           <p>Пол: {passport?.sex}</p>
           <p>Дата истечения срока: {passport?.expiry_date}</p>
           <p>ИНН: {passport?.inn}</p>
