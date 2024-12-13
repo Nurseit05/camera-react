@@ -37,7 +37,7 @@ const prepareCameraSetting = () => {
 export const cropImage = (
   base64?: string | null,
   quality = 0.5,
-): Promise<void> => {
+): Promise<string> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
 
@@ -50,22 +50,10 @@ export const cropImage = (
         return;
       }
 
-      const { canvasSettings, cropSettings } = prepareCameraSetting();
+      canvas.width = img.width;
+      canvas.height = img.height;
 
-      canvas.width = canvasSettings.width;
-      canvas.height = canvasSettings.height;
-
-      ctx.drawImage(
-        img,
-        cropSettings.sx,
-        cropSettings.sy,
-        cropSettings.sw,
-        cropSettings.sh,
-        cropSettings.dx,
-        cropSettings.dy,
-        cropSettings.dw,
-        cropSettings.dh,
-      );
+      ctx.drawImage(img, 0, 0, img.width, img.height);
 
       const originalSize = getBase64Size(base64 as string); // Размер исходного файла
       const croppedBase64 = canvas.toDataURL('image/jpeg', quality); // Результат

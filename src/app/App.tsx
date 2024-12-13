@@ -18,9 +18,11 @@ export function App() {
     null,
   );
   const [uploading, setUploading] = useState(false);
+  const [passport, setPassport] = useState(false);
 
-  const handleScanPassword = () => {
+  const handleScanPassword = (passport: boolean) => {
     setScan(true);
+    setPassport(passport);
   };
 
   return (
@@ -39,6 +41,7 @@ export function App() {
         <ScanMedia
           onError={() => {}}
           onMakeShot={(photo) => fetchPhoto(photo, setNotification)}
+          passport={passport}
         />
       )}
 

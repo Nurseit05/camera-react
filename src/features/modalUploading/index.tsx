@@ -9,13 +9,12 @@ import Cross from '@/shared/ui/icons/Cross';
 
 import styles from './styles.module.scss';
 
-const ModalUploading = ({
-  closeModal,
-  passwordScan,
-}: {
+interface Props {
   closeModal: Dispatch<SetStateAction<boolean>>;
-  passwordScan: () => void;
-}) => {
+  passwordScan: (passport: boolean) => void;
+}
+
+const ModalUploading = ({ closeModal, passwordScan }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapperModal}>
@@ -29,11 +28,17 @@ const ModalUploading = ({
           </div>
         </div>
         <div className={styles.btn}>
-          <button onClick={passwordScan} className={styles.wrapperBtn}>
+          <button
+            onClick={() => passwordScan(true)}
+            className={styles.wrapperBtn}
+          >
             <img src={IdPassword} />
             <p className={styles.text}>Загрузка ID-паспорта</p>
           </button>
-          <button onClick={passwordScan} className={styles.wrapperBtn}>
+          <button
+            onClick={() => passwordScan(false)}
+            className={styles.wrapperBtn}
+          >
             <img src={Password} />
             <p className={styles.text}>Загрузка загранпаспорта</p>
           </button>

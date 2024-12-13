@@ -13,7 +13,7 @@ const SCREEN_QUALITY = 0.5;
 const FRONT_CAMERA = 'user';
 const BACK_CAMERA = { exact: 'environment' };
 
-export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
+export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
   const [isFrontCamera, setIsFrontCamera] = useState(
     process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
   );
@@ -43,11 +43,11 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
     try {
       const compressedFile = await cropImage(imageSrc);
       setImages(compressedFile);
-      // onMakeShot(compressedFile);
+      onMakeShot(compressedFile);
     } catch {
       onError();
     }
-  }, [webcamRef, onError]);
+  }, [webcamRef, onError, onMakeShot]);
 
   const toggleTorch = () => {
     setIsTorchOn((prev) => !prev);
@@ -79,6 +79,9 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError }) => {
 
   return (
     <div className={s.container}>
+      {passport && (
+        <div className={s.header}>Отсканируйте обратную сторону паспорта</div>
+      )}
       <div className={s.wrapperCamera}>
         {images && (
           <img width={window.innerWidth} src={images} alt="Captured" />
