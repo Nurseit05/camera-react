@@ -103,7 +103,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
           videoConstraints={videoConstraints}
           onUserMediaError={onError}
           onUserMedia={() => setIsWebcamReady(true)}
-          screenshotFormat="image/png"
+          screenshotFormat="image/webp"
         />
         {cropSettings && passport && !images && isWebcamReady && (
           <div

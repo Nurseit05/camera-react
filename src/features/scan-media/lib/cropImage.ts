@@ -67,7 +67,12 @@ export const cropImage = (
         cropSettings.dh,
       );
 
-      const croppedBase64 = canvas.toDataURL('image/jpeg', quality); // Результат
+      const originalSize = getBase64Size(base64 as string); // Размер исходного файла
+      const croppedBase64 = canvas.toDataURL('image/webp', quality); // Результат
+      const croppedSize = getBase64Size(croppedBase64); // Размер результата
+
+      alert(`Original size: ${(originalSize / 1024).toFixed(2)} KB`);
+      alert(`Cropped size: ${(croppedSize / 1024).toFixed(2)} KB`);
 
       resolve(croppedBase64);
     };
