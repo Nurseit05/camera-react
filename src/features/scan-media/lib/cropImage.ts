@@ -1,18 +1,18 @@
 const WIDTH_IMAGE_IN_PERCENTAGE = 90;
 
-const HEIGHT_IMAGE = 250;
+const HEIGHT_IMAGE = 230;
 
-const START_CROP_IMAGE_IN_PERCENTAGE_BY_X = 7;
+const START_CROP_IMAGE_IN_PERCENTAGE_BY_X = 6;
 
 const FULL_PERCENT = 100;
 
-const START_CROP_Y = 125;
+const START_CROP_Y = 20;
 
 const percentToNumber = (fullNumber: number, percent: number) => {
   return (fullNumber * percent) / FULL_PERCENT;
 };
 
-const prepareCameraSetting = () => {
+export const prepareCameraSetting = () => {
   return {
     canvasSettings: {
       height: HEIGHT_IMAGE,
@@ -50,17 +50,24 @@ export const cropImage = (
         return;
       }
 
-      canvas.width = img.width;
-      canvas.height = img.height;
+      const { cropSettings } = prepareCameraSetting();
 
-      ctx.drawImage(img, 0, 0, img.width, img.height);
+      canvas.width = cropSettings.dw;
+      canvas.height = cropSettings.dh;
 
-      const originalSize = getBase64Size(base64 as string); // Размер исходного файла
+      ctx.drawImage(
+        img,
+        cropSettings.sx,
+        cropSettings.sy,
+        cropSettings.sw,
+        cropSettings.sh,
+        cropSettings.dx,
+        cropSettings.dy,
+        cropSettings.dw,
+        cropSettings.dh,
+      );
+
       const croppedBase64 = canvas.toDataURL('image/jpeg', quality); // Результат
-      const croppedSize = getBase64Size(croppedBase64); // Размер результата
-
-      alert(`Original size: ${(originalSize / 1024).toFixed(2)} KB`);
-      alert(`Cropped size: ${(croppedSize / 1024).toFixed(2)} KB`);
 
       resolve(croppedBase64);
     };
