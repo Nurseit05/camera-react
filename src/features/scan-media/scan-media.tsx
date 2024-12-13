@@ -79,10 +79,10 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
 
   return (
     <div className={s.container}>
-      {passport && (
-        <div className={s.header}>Отсканируйте обратную сторону паспорта</div>
-      )}
       <div className={s.wrapperCamera}>
+        {passport && !images && (
+          <div className={s.header}>Отсканируйте обратную сторону паспорта</div>
+        )}
         {images && (
           <img width={window.innerWidth} src={images} alt="Captured" />
         )}
