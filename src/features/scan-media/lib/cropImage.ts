@@ -18,11 +18,11 @@ export const prepareCameraSetting = (passport: boolean) => {
     if (passport && width >= 375 && width < 393) return 'range2';
     if (passport && width >= 393 && width < 480) return 'range3';
     if (passport && width >= 480 && width < 768) return 'range4';
+    if (!passport && width >= 393 && width < 480) return 'range9';
     if (!passport && width >= 480 && width < 550) return 'range5';
     if (!passport && width >= 550 && width < 600) return 'range6';
     if (!passport && width >= 600 && width < 650) return 'range7';
     if (!passport && width >= 650 && width < 700) return 'range8';
-    if (!passport && width >= 700 && width < 1280) return 'range9';
     return 'default';
   }
 
@@ -56,8 +56,7 @@ export const prepareCameraSetting = (passport: boolean) => {
       HEIGHT_IMAGE = 410;
       break;
     case 'range9':
-      START_CROP_Y = 20;
-      HEIGHT_IMAGE = 500;
+      HEIGHT_IMAGE = 400;
       break;
     default:
       console.log('No matching range found');
