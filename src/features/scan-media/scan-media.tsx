@@ -34,7 +34,6 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
     height: { min: 240, ideal: 1080, max: 1080 },
     facingMode: isFrontCamera,
   };
-  console.log(cropSettings);
 
   const handleImages = () => {
     setImages('');
@@ -56,7 +55,6 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
       onError();
     }
   }, [webcamRef, onError, onMakeShot, passport]);
-  console.log(cropImage);
 
   const toggleTorch = () => {
     setIsTorchOn((prev) => !prev);

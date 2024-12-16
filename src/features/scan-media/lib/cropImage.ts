@@ -34,7 +34,7 @@ export const prepareCameraSetting = (passport: boolean) => {
   } else if (passport && WIDTH_IMAGE >= 768) {
     START_CROP_Y = 100;
     HEIGHT_IMAGE = 250;
-  } else if (!passport && WIDTH_IMAGE < 1080) {
+  } else if (!passport && WIDTH_IMAGE <= 1080) {
     START_CROP_Y = 30;
     HEIGHT_IMAGE = 650;
   }
