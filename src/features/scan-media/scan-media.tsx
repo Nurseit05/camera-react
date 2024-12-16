@@ -41,13 +41,13 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
   };
 
   const handleWebcamHeight = useCallback(() => {
-    setIsWebcamReady(true);
     setTimeout(() => {
       const updatedHeight =
         parentWebcamRef?.current?.getBoundingClientRect().height;
 
       setHeight(updatedHeight as number);
-    }, 50);
+    }, 200);
+    setIsWebcamReady(true);
   }, []);
 
   const captureScreenshot = useCallback(async () => {
