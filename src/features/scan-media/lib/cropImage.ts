@@ -21,6 +21,7 @@ export const prepareCameraSetting = () => {
     START_CROP_Y = 60;
   } else if (WIDTH_IMAGE >= 768) {
     START_CROP_Y = 100;
+    HEIGHT_IMAGE = 250;
   }
 
   return {
