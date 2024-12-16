@@ -65,6 +65,8 @@ export const prepareCameraSetting = (passport: boolean) => {
 
   if (passport) alert(START_CROP_Y);
   if (!passport) alert(START_CROP_Y);
+  if (passport) alert(HEIGHT_IMAGE);
+  if (!passport) alert(HEIGHT_IMAGE);
 
   return {
     canvasSettings: {
