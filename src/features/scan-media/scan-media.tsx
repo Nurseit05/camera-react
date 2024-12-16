@@ -13,6 +13,9 @@ import { cropSettings } from './type';
 
 const SCREEN_QUALITY = 0.5;
 
+const FRONT_CAMERA = 'user';
+const BACK_CAMERA = { exact: 'environment' };
+
 export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
   const [images, setImages] = useState('');
   const [isTorchOn, setIsTorchOn] = useState<boolean>(false);
@@ -31,7 +34,8 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
   const videoConstraints = {
     width: { min: 640, ideal: 1080, max: 1080 },
     height: { min: 480, ideal: 1080, max: 1080 },
-    facingMode: 'user',
+    facingMode:
+      process.env.NODE_ENV !== 'production' ? FRONT_CAMERA : BACK_CAMERA,
   };
 
   const handleImages = () => {
