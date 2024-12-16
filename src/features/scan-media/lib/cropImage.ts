@@ -13,29 +13,54 @@ export const prepareCameraSetting = (passport: boolean) => {
   let HEIGHT_IMAGE = 230;
   const WIDTH_IMAGE = window.innerWidth;
 
-  if (WIDTH_IMAGE >= 320 && WIDTH_IMAGE < 375) {
-    HEIGHT_IMAGE = 180;
-  } else if (passport && WIDTH_IMAGE >= 375 && WIDTH_IMAGE < 480) {
-    HEIGHT_IMAGE = 200;
-  } else if (passport && WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 768) {
-    START_CROP_Y = 60;
-  } else if (passport && WIDTH_IMAGE < 1120) {
-    START_CROP_Y = 250;
-  } else if (!passport && WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 550) {
-    START_CROP_Y = 15;
-    HEIGHT_IMAGE = 300;
-  } else if (!passport && WIDTH_IMAGE >= 550 && WIDTH_IMAGE < 600) {
-    START_CROP_Y = 15;
-    HEIGHT_IMAGE = 350;
-  } else if (!passport && WIDTH_IMAGE >= 600 && WIDTH_IMAGE < 650) {
-    START_CROP_Y = 20;
-    HEIGHT_IMAGE = 370;
-  } else if (!passport && WIDTH_IMAGE >= 650 && WIDTH_IMAGE < 700) {
-    START_CROP_Y = 20;
-    HEIGHT_IMAGE = 410;
-  } else if (!passport && WIDTH_IMAGE >= 768 && WIDTH_IMAGE < 1120) {
-    START_CROP_Y = 30;
-    HEIGHT_IMAGE = 650;
+  function getRange(width: number, passport: boolean) {
+    if (width >= 320 && width < 375) return 'range1';
+    if (passport && width >= 375 && width < 480) return 'range2';
+    if (passport && width >= 480 && width < 768) return 'range3';
+    if (passport && width < 1120) return 'range4';
+    if (!passport && width >= 480 && width < 550) return 'range5';
+    if (!passport && width >= 550 && width < 600) return 'range6';
+    if (!passport && width >= 600 && width < 650) return 'range7';
+    if (!passport && width >= 650 && width < 700) return 'range8';
+    if (!passport && width >= 768 && width < 1120) return 'range9';
+    return 'default';
+  }
+
+  switch (getRange(WIDTH_IMAGE, passport)) {
+    case 'range1':
+      HEIGHT_IMAGE = 180;
+      break;
+    case 'range2':
+      HEIGHT_IMAGE = 200;
+      break;
+    case 'range3':
+      START_CROP_Y = 60;
+      break;
+    case 'range4':
+      START_CROP_Y = 250;
+      break;
+    case 'range5':
+      START_CROP_Y = 15;
+      HEIGHT_IMAGE = 300;
+      break;
+    case 'range6':
+      START_CROP_Y = 15;
+      HEIGHT_IMAGE = 350;
+      break;
+    case 'range7':
+      START_CROP_Y = 20;
+      HEIGHT_IMAGE = 370;
+      break;
+    case 'range8':
+      START_CROP_Y = 20;
+      HEIGHT_IMAGE = 410;
+      break;
+    case 'range9':
+      START_CROP_Y = 30;
+      HEIGHT_IMAGE = 650;
+      break;
+    default:
+      console.log('No matching range found');
   }
 
   if (passport) alert(START_CROP_Y);
