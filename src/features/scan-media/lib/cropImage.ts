@@ -15,8 +15,8 @@ export const prepareCameraSetting = (passport: boolean) => {
 
   function getRange(width: number, passport: boolean) {
     if (width >= 320 && width < 375) return 'range1';
-    if (passport && width >= 375 && width < 480) return 'range2';
-    if (passport && width >= 393) return 'redmiNote8';
+    if (passport && width >= 375 && width < 393) return 'range2';
+    if (passport && width >= 393 && width < 480) return 'redmiNote8';
     if (passport && width >= 480 && width < 768) return 'range3';
     if (!passport && width >= 480 && width < 550) return 'range5';
     if (!passport && width >= 550 && width < 600) return 'range6';
