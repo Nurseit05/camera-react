@@ -63,6 +63,8 @@ export const prepareCameraSetting = (passport: boolean) => {
       console.log('No matching range found');
   }
 
+  if (passport) alert(WIDTH_IMAGE);
+  if (!passport) alert(WIDTH_IMAGE);
   if (passport) alert(START_CROP_Y);
   if (!passport) alert(START_CROP_Y);
   if (passport) alert(HEIGHT_IMAGE);
