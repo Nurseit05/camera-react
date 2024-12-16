@@ -37,7 +37,7 @@ export const prepareCameraSetting = (passport: boolean) => {
       START_CROP_Y = 60;
       break;
     case 'redmiNote8':
-      START_CROP_Y = 250;
+      START_CROP_Y = 100;
       break;
     case 'range5':
       START_CROP_Y = 15;
