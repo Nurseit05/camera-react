@@ -50,7 +50,7 @@ export const prepareCameraSetting = (passport: boolean, height: number) => {
       console.log('No matching range found');
   }
 
-  const CROP_CENTER_Y = (WINDOW_HEIGHT - HEIGHT_IMAGE) / 2;
+  const CROP_CENTER_Y = WINDOW_HEIGHT - HEIGHT_IMAGE;
 
   return {
     canvasSettings: {
@@ -59,7 +59,7 @@ export const prepareCameraSetting = (passport: boolean, height: number) => {
     },
     cropSettings: {
       sx: percentToNumber(WIDTH_IMAGE, START_CROP_IMAGE_IN_PERCENTAGE_BY_X), // начальная точка вырезки фото по оси X
-      sy: CROP_CENTER_Y, // начальная точка вырезки фото по оси Y
+      sy: CROP_CENTER_Y / 2, // начальная точка вырезки фото по оси Y
       sw: percentToNumber(WIDTH_IMAGE, WIDTH_IMAGE_IN_PERCENTAGE), // ширина фотографии для вырезки
       sh: HEIGHT_IMAGE, // высота фотографии для вырезки
       dx: 0, // отступ результата вырезанной фото по оси X
