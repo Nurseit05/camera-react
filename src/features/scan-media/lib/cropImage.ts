@@ -1,34 +1,41 @@
 const WIDTH_IMAGE_IN_PERCENTAGE = 90;
 
-const HEIGHT_IMAGE = 230;
-
 const START_CROP_IMAGE_IN_PERCENTAGE_BY_X = 6;
 
 const FULL_PERCENT = 100;
-
-const START_CROP_Y = 20;
 
 const percentToNumber = (fullNumber: number, percent: number) => {
   return (fullNumber * percent) / FULL_PERCENT;
 };
 
 export const prepareCameraSetting = () => {
+  let START_CROP_Y = 20;
+  let HEIGHT_IMAGE = 230;
+  const WIDTH_IMAGE = window.innerWidth;
+
+  if (WIDTH_IMAGE >= 320 && WIDTH_IMAGE < 375) {
+    HEIGHT_IMAGE = 180;
+  } else if (WIDTH_IMAGE >= 375 && WIDTH_IMAGE < 480) {
+    HEIGHT_IMAGE = 200;
+  } else if (WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 768) {
+    START_CROP_Y = 60;
+  } else if (WIDTH_IMAGE >= 768) {
+    START_CROP_Y = 100;
+  }
+
   return {
     canvasSettings: {
       height: HEIGHT_IMAGE,
-      width: percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE),
+      width: percentToNumber(WIDTH_IMAGE, WIDTH_IMAGE_IN_PERCENTAGE),
     },
     cropSettings: {
-      sx: percentToNumber(
-        window.innerWidth,
-        START_CROP_IMAGE_IN_PERCENTAGE_BY_X,
-      ), //начальная точка вырезки фото по оси X
-      sy: START_CROP_Y, //начальная точка вырезки фото по оси Y
-      sw: percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE), //ширина фотографии для вырезки
-      sh: HEIGHT_IMAGE, //высова фотографии для вырезки
-      dx: 0, //отступ результата вырезанной фото по оси X
-      dy: 0, //отступ результата вырезанной фото по оси Y
-      dw: percentToNumber(window.innerWidth, WIDTH_IMAGE_IN_PERCENTAGE), // ширина вырезанной фотографии
+      sx: percentToNumber(WIDTH_IMAGE, START_CROP_IMAGE_IN_PERCENTAGE_BY_X), // начальная точка вырезки фото по оси X
+      sy: START_CROP_Y, // начальная точка вырезки фото по оси Y
+      sw: percentToNumber(WIDTH_IMAGE, WIDTH_IMAGE_IN_PERCENTAGE), // ширина фотографии для вырезки
+      sh: HEIGHT_IMAGE, // высота фотографии для вырезки
+      dx: 0, // отступ результата вырезанной фото по оси X
+      dy: 0, // отступ результата вырезанной фото по оси Y
+      dw: percentToNumber(WIDTH_IMAGE, WIDTH_IMAGE_IN_PERCENTAGE), // ширина вырезанной фотографии
       dh: HEIGHT_IMAGE, // высота вырезанной фотографии
     },
   };
