@@ -8,10 +8,10 @@ const percentToNumber = (fullNumber: number, percent: number) => {
   return (fullNumber * percent) / FULL_PERCENT;
 };
 
-export const prepareCameraSetting = (passport: boolean) => {
+export const prepareCameraSetting = (passport: boolean, height: number) => {
   let HEIGHT_IMAGE = 230;
   const WIDTH_IMAGE = window.innerWidth;
-  const WINDOW_HEIGHT = window.innerHeight;
+  const WINDOW_HEIGHT = height;
 
   function getRange(width: number, passport: boolean) {
     if (width >= 320 && width < 375) return 'range1';
@@ -50,9 +50,6 @@ export const prepareCameraSetting = (passport: boolean) => {
       console.log('No matching range found');
   }
 
-  if (passport) alert(WIDTH_IMAGE);
-  if (!passport) alert(WIDTH_IMAGE);
-
   const CROP_CENTER_Y = (WINDOW_HEIGHT - HEIGHT_IMAGE) / 2;
 
   return {
@@ -76,6 +73,7 @@ export const prepareCameraSetting = (passport: boolean) => {
 export const cropImage = (
   base64?: string | null,
   passport?: boolean,
+  height?: number,
   quality = 0.5,
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -90,7 +88,10 @@ export const cropImage = (
         return;
       }
 
-      const { cropSettings } = prepareCameraSetting(passport as boolean);
+      const { cropSettings } = prepareCameraSetting(
+        passport as boolean,
+        height as number,
+      );
 
       canvas.width = cropSettings.dw;
       canvas.height = cropSettings.dh;

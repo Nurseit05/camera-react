@@ -21,13 +21,14 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
   const [isTorchOn, setIsTorchOn] = useState<boolean>(false);
   const [cropSettings, setCropSettings] = useState<cropSettings | null>(null);
   const [isWebcamReady, setIsWebcamReady] = useState(false);
+  const webcamRef = useRef<Webcam>(null);
+  const parentWebcamRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const settings = prepareCameraSetting(passport);
+    const height = parentWebcamRef?.current?.getBoundingClientRect().height;
+    const settings = prepareCameraSetting(passport, height as number);
     setCropSettings(settings.cropSettings);
   }, [passport]);
-
-  const webcamRef = useRef<Webcam>(null);
 
   const videoConstraints = {
     width: { min: 320, ideal: 1080, max: 1080 },
@@ -41,6 +42,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
 
   const captureScreenshot = useCallback(async () => {
     const imageSrc = webcamRef.current?.getScreenshot();
+    const height = parentWebcamRef?.current?.getBoundingClientRect().height;
 
     if (!imageSrc) {
       onError();
@@ -48,7 +50,11 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
     }
 
     try {
-      const compressedFile = await cropImage(imageSrc, passport);
+      const compressedFile = await cropImage(
+        imageSrc,
+        passport,
+        height as number,
+      );
       setImages(imageSrc);
       onMakeShot(compressedFile);
     } catch {
@@ -86,7 +92,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
 
   return (
     <div className={s.container}>
-      <div className={s.wrapperCamera}>
+      <div ref={parentWebcamRef} className={s.wrapperCamera}>
         {passport && !images && isWebcamReady && (
           <div className={s.header}>Отсканируйте обратную сторону паспорта</div>
         )}
