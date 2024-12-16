@@ -23,7 +23,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
   const [isWebcamReady, setIsWebcamReady] = useState(false);
 
   useEffect(() => {
-    const settings = prepareCameraSetting();
+    const settings = prepareCameraSetting(passport);
     setCropSettings(settings.cropSettings);
   }, [passport]);
 
@@ -49,13 +49,14 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
     }
 
     try {
-      const compressedFile = await cropImage(imageSrc);
+      const compressedFile = await cropImage(imageSrc, passport);
       setImages(imageSrc);
       onMakeShot(compressedFile);
     } catch {
       onError();
     }
-  }, [webcamRef, onError, onMakeShot]);
+  }, [webcamRef, onError, onMakeShot, passport]);
+  console.log(cropImage);
 
   const toggleTorch = () => {
     setIsTorchOn((prev) => !prev);
@@ -105,7 +106,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
           onUserMedia={() => setIsWebcamReady(true)}
           screenshotFormat="image/webp"
         />
-        {cropSettings && passport && !images && isWebcamReady && (
+        {cropSettings && !images && isWebcamReady && (
           <div
             className={s.blockPhoto}
             style={{

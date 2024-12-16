@@ -8,7 +8,7 @@ const percentToNumber = (fullNumber: number, percent: number) => {
   return (fullNumber * percent) / FULL_PERCENT;
 };
 
-export const prepareCameraSetting = () => {
+export const prepareCameraSetting = (passport: boolean) => {
   let START_CROP_Y = 20;
   let HEIGHT_IMAGE = 230;
   const WIDTH_IMAGE = window.innerWidth;
@@ -17,11 +17,28 @@ export const prepareCameraSetting = () => {
     HEIGHT_IMAGE = 180;
   } else if (WIDTH_IMAGE >= 375 && WIDTH_IMAGE < 480) {
     HEIGHT_IMAGE = 200;
-  } else if (WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 768) {
+  } else if (passport && WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 768) {
     START_CROP_Y = 60;
+  } else if (!passport && WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 550) {
+    START_CROP_Y = 15;
+    HEIGHT_IMAGE = 300;
+  } else if (!passport && WIDTH_IMAGE >= 550 && WIDTH_IMAGE < 600) {
+    START_CROP_Y = 15;
+    HEIGHT_IMAGE = 350;
+  } else if (!passport && WIDTH_IMAGE >= 600 && WIDTH_IMAGE < 650) {
+    START_CROP_Y = 20;
+    HEIGHT_IMAGE = 370;
+  } else if (!passport && WIDTH_IMAGE >= 650 && WIDTH_IMAGE < 700) {
+    START_CROP_Y = 20;
+    HEIGHT_IMAGE = 410;
   } else if (WIDTH_IMAGE >= 768) {
-    START_CROP_Y = 100;
-    HEIGHT_IMAGE = 250;
+    if (passport) {
+      START_CROP_Y = 100;
+      HEIGHT_IMAGE = 250;
+    } else {
+      START_CROP_Y = 50;
+      HEIGHT_IMAGE = 400;
+    }
   }
 
   return {
@@ -44,6 +61,7 @@ export const prepareCameraSetting = () => {
 
 export const cropImage = (
   base64?: string | null,
+  passport?: boolean,
   quality = 0.5,
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -58,7 +76,7 @@ export const cropImage = (
         return;
       }
 
-      const { cropSettings } = prepareCameraSetting();
+      const { cropSettings } = prepareCameraSetting(passport as boolean);
 
       canvas.width = cropSettings.dw;
       canvas.height = cropSettings.dh;
