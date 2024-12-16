@@ -16,8 +16,8 @@ export const prepareCameraSetting = (passport: boolean) => {
   function getRange(width: number, passport: boolean) {
     if (width >= 320 && width < 375) return 'range1';
     if (passport && width >= 375 && width < 480) return 'range2';
+    if (passport && width >= 393) return 'redmiNote8';
     if (passport && width >= 480 && width < 768) return 'range3';
-    if (passport && width < 1120) return 'range4';
     if (!passport && width >= 480 && width < 550) return 'range5';
     if (!passport && width >= 550 && width < 600) return 'range6';
     if (!passport && width >= 600 && width < 650) return 'range7';
@@ -36,7 +36,7 @@ export const prepareCameraSetting = (passport: boolean) => {
     case 'range3':
       START_CROP_Y = 60;
       break;
-    case 'range4':
+    case 'redmiNote8':
       START_CROP_Y = 250;
       break;
     case 'range5':
@@ -65,10 +65,6 @@ export const prepareCameraSetting = (passport: boolean) => {
 
   if (passport) alert(WIDTH_IMAGE);
   if (!passport) alert(WIDTH_IMAGE);
-  if (passport) alert(START_CROP_Y);
-  if (!passport) alert(START_CROP_Y);
-  if (passport) alert(HEIGHT_IMAGE);
-  if (!passport) alert(HEIGHT_IMAGE);
 
   return {
     canvasSettings: {
