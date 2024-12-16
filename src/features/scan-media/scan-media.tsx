@@ -87,7 +87,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
         try {
-          const dataUrl = canvas.toDataURL(file.type, quality);
+          const dataUrl = canvas.toDataURL('image/webp', quality);
           resolve(dataUrl);
         } catch (error) {
           reject(error);
