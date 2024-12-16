@@ -50,7 +50,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
 
     try {
       const compressedFile = await cropImage(imageSrc);
-      setImages(compressedFile);
+      setImages(imageSrc);
       onMakeShot(compressedFile);
     } catch {
       onError();
