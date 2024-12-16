@@ -17,6 +17,8 @@ export const prepareCameraSetting = (passport: boolean) => {
     HEIGHT_IMAGE = 180;
   } else if (passport && WIDTH_IMAGE >= 375 && WIDTH_IMAGE < 480) {
     HEIGHT_IMAGE = 200;
+  } else if (passport && WIDTH_IMAGE > 480 && WIDTH_IMAGE < 1120) {
+    START_CROP_Y = 250;
   } else if (passport && WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 768) {
     START_CROP_Y = 60;
   } else if (!passport && WIDTH_IMAGE >= 480 && WIDTH_IMAGE < 550) {
@@ -31,15 +33,13 @@ export const prepareCameraSetting = (passport: boolean) => {
   } else if (!passport && WIDTH_IMAGE >= 650 && WIDTH_IMAGE < 700) {
     START_CROP_Y = 20;
     HEIGHT_IMAGE = 410;
-  } else if (passport && WIDTH_IMAGE > 480 && WIDTH_IMAGE < 1120) {
-    START_CROP_Y = 250;
   } else if (!passport && WIDTH_IMAGE >= 768 && WIDTH_IMAGE < 1120) {
     START_CROP_Y = 30;
     HEIGHT_IMAGE = 650;
   }
 
-  if (passport) alert(HEIGHT_IMAGE);
-  if (!passport) alert(HEIGHT_IMAGE);
+  if (passport) alert(START_CROP_Y);
+  if (!passport) alert(START_CROP_Y);
 
   return {
     canvasSettings: {
