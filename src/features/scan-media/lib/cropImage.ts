@@ -38,6 +38,7 @@ export const prepareCameraSetting = (passport: boolean) => {
     HEIGHT_IMAGE = 650;
   }
 
+  if (passport) alert(HEIGHT_IMAGE);
   if (!passport) alert(HEIGHT_IMAGE);
 
   return {
