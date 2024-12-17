@@ -46,7 +46,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
         parentWebcamRef?.current?.getBoundingClientRect().height;
 
       setHeight(updatedHeight as number);
-    }, 200);
+    }, 100);
     setIsWebcamReady(true);
   }, []);
 
