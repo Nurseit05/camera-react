@@ -174,6 +174,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
         )}
         <div ref={parentWebcamRef}>
           <Webcam
+            onLoadedMetadata={handleWebcamHeight}
             style={{
               display: images ? 'none' : 'inline',
             }}
@@ -183,7 +184,7 @@ export const ScanMedia: FC<Props> = ({ onMakeShot, onError, passport }) => {
             width={window.screen.availWidth}
             videoConstraints={videoConstraints}
             onUserMediaError={onError}
-            onUserMedia={handleWebcamHeight}
+            onUserMedia={() => {}}
             screenshotFormat="image/webp"
           />
         </div>
